@@ -40,3 +40,103 @@
 .read-the-docs {
   color: #888;
 }
+
+/* src/App.css */
+
+.product-grid {
+  display: grid;
+  /* 1fr means "1 fraction of available space". 
+     repeat(3, 1fr) means create 3 equal columns. */
+  grid-template-columns: repeat(3, 1fr); 
+  gap: 20px; /* Space between the cards */
+  padding: 20px;
+}
+
+.product-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Optional: adds a nice shadow */
+  background-color: rgb(41, 40, 40);
+  
+  /* Ensures all cards are the same height */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; 
+}
+
+/* Product Detail Container */
+.product-detail-container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 20px;
+}
+
+.product-detail-card {
+  display: flex; /* Creates a 2-column layout (Image Left, Text Right) */
+  gap: 40px;
+  margin-top: 20px;
+  border: 1px solid #ddd;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  background-color: rgb(41, 40, 40);
+}
+
+/* Image styling */
+.detail-image {
+  width: 100%;
+  max-width: 300px; /* Limits image width */
+  height: auto;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.no-image-placeholder {
+  width: 300px;
+  height: 300px;
+  background-color: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #888;
+  border-radius: 8px;
+}
+
+.detail-info {
+  flex: 1; /* Takes up the remaining space */
+}
+
+.buy-button {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.buy-button:hover {
+  background-color: #218838;
+}
+
+/* Responsive: Stack them on mobile */
+@media (max-width: 768px) {
+  .product-detail-card {
+    flex-direction: column;
+  }
+  .detail-image, .no-image-placeholder {
+    max-width: 100%;
+    width: 100%;
+  }
+}
+
+/* Optional: Make it 1 column on mobile phones so it doesn't look squished */
+@media (max-width: 768px) {
+  .product-grid {
+    grid-template-columns: 1fr;
+  }
+}
