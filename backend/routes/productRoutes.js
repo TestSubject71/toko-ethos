@@ -2,10 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Product = require('../models/Product');
 
-// ==============================================
-// 1. GET ALL PRODUCTS (Read)
-// Required for: "Product List" Page
-// ==============================================
+// Get All
 router.get('/', async (req, res) => {
     try {
         // .find() is a Mongoose command to get EVERYTHING
@@ -16,10 +13,7 @@ router.get('/', async (req, res) => {
     }
 });
 
-// ==============================================
-// 2. GET ONE PRODUCT (Read)
-// Required for: "Product Detail" Page
-// ==============================================
+// Get ID
 router.get('/:id', async (req, res) => {
     try {
         // .findById() looks for that specific _id
@@ -31,12 +25,9 @@ router.get('/:id', async (req, res) => {
     }
 });
 
-// ==============================================
-// 3. CREATE PRODUCT (Create)
-// Required to populate your database
-// ==============================================
+
+// Create
 router.post('/', async (req, res) => {
-    // Create a new product object using data sent from Frontend (req.body)
     const product = new Product({
         name: req.body.name,
         description: req.body.description,
@@ -46,7 +37,6 @@ router.post('/', async (req, res) => {
     });
 
     try {
-        // .save() actually talks to the database
         const newProduct = await product.save();
         res.status(201).json(newProduct);
     } catch (err) {
@@ -54,10 +44,6 @@ router.post('/', async (req, res) => {
     }
 });
 
-// ==============================================
-// 4. UPDATE & DELETE (Update / Delete)
-// Required for full CRUD score
-// ==============================================
 
 // Update
 router.patch('/:id', async (req, res) => {

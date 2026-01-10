@@ -5,16 +5,13 @@ import '../App.css';
 
 const ProductList = () => {
   const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true); // New loading state
-  const [error, setError] = useState(null);     // New error state
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    // Debug: Check if this runs
     console.log("Attempting to fetch data...");
-
     axios.get('http://localhost:5000/api/products') 
       .then(response => {
-        // Debug: See exactly what the backend sent
         console.log("Data received:", response.data);
         setProducts(response.data);
         setLoading(false);
@@ -38,8 +35,23 @@ const ProductList = () => {
         <div className="product-grid">
           {products.map(product => (
             <div key={product._id} className="product-card">
+              
+            
+              {product.imageUrl ? (
+                <img 
+                  src={product.imageUrl} 
+                  alt={product.name} 
+                  className="card-image" 
+                />
+              ) : (
+                <div className="no-image-placeholder">No Image</div>
+              )}
+              
+
               <h3>{product.name}</h3>
-              <p>Rp {product.price}</p>
+              <p style={{ fontWeight: 'bold', color: 'green' }}>
+                Rp {product.price.toLocaleString()}
+              </p>
               <Link to={`/products/${product._id}`}>View Details</Link>
             </div>
           ))}

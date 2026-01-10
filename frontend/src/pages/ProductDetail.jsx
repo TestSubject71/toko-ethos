@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
-import '../App.css'; // Ensure we have access to styles
+import '../App.css'; 
 
 const ProductDetail = () => {
   const { id } = useParams(); // Get the ID from the URL
@@ -10,7 +10,6 @@ const ProductDetail = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    // Fetch the single product using the ID
     axios.get(`http://localhost:5000/api/products/${id}`)
       .then(response => {
         setProduct(response.data);
@@ -29,12 +28,12 @@ const ProductDetail = () => {
 
   return (
     <div className="product-detail-container">
-      <Link to="/products" style={{ textDecoration: 'none', color: '#333' }}>
+      <Link to="/products" style={{ textDecoration: 'none', color: '#ffffffff' }}>
          &larr; Back to Product List
       </Link>
       
       <div className="product-detail-card">
-        {/* 1. IMAGE: Only render if imageUrl exists (since required: false) */}
+        {/* 1. IMAGE*/}
         {product.imageUrl ? (
           <img 
             src={product.imageUrl} 
