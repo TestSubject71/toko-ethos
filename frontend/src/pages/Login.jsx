@@ -11,21 +11,24 @@ const Login = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
+    const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:5000/api/auth/login', formData);
-      
-      // SUCCESS: Save token to browser storage
-      localStorage.setItem('token', res.data.token);
-      alert('Login Successful!');
-      
-      // Redirect to Home
-      navigate('/');
+        const res = await axios.post('http://localhost:5000/api/auth/login', formData);
+        
+        // Save Token AND Username
+        localStorage.setItem('token', res.data.token);
+        localStorage.setItem('username', res.data.user.username); // <--- ADD THIS
+        
+        alert('Login Successful!');
+        
+        // Force a reload to update the Navbar instantly
+        window.location.href = '/'; 
+        
     } catch (err) {
-      setError(err.response?.data?.message || 'Login failed');
+        setError(err.response?.data?.message || 'Login failed');
     }
-  };
+    };
 
   return (
     <div style={{ maxWidth: '400px', margin: '50px auto', textAlign: 'center' }}>

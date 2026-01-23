@@ -6,15 +6,12 @@ import ProductDetail from './pages/ProductDetail';
 import './App.css';
 import Login from './pages/Login';       
 import Register from './pages/Register'; 
+import Navbar from './components/Navbar'
 
 function App() {
   return (
     <Router>
-      <nav className="navbar">
-        {/* Simple Navigation */}
-        <Link to="/">Home</Link> | <Link to="/products">Shop</Link> | 
-        <Link to="/login" style={{ marginLeft: '10px' }}>Login</Link>
-      </nav>
+      <Navbar />
 
       <Routes>
         <Route path="/" element={<Home />} />
