@@ -3,13 +3,14 @@ const router = express.Router();
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const JWT_SECRET = process.env.JWT_SECRET;
+if (!JWT_SECRET) {
+  console.error("FATAL ERROR: JWT_SECRET is not defined.");
+  process.exit(1);
+}
 
-// SECRET KEY (In a real app, this goes in .env, but for now we hardcode it for simplicity)
-const JWT_SECRET = 'my_super_secret_key_123'; 
+//REGISTER
 
-// ==========================
-// 1. REGISTER (Sign Up)
-// ==========================
 router.post('/register', async (req, res) => {
   try {
     const { username, password } = req.body;
@@ -36,9 +37,9 @@ router.post('/register', async (req, res) => {
   }
 });
 
-// ==========================
-// 2. LOGIN (Sign In)
-// ==========================
+
+// LOGIN 
+
 router.post('/login', async (req, res) => {
   try {
     const { username, password } = req.body;
