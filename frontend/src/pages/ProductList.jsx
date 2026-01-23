@@ -4,13 +4,16 @@ import axios from 'axios';
 import '../App.css';
 
 const ProductList = () => {
+  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     console.log("Attempting to fetch data...");
-    axios.get('http://localhost:5000/api/products') 
+    
+    axios.get(`${API_URL}/products`) 
       .then(response => {
         console.log("Data received:", response.data);
         setProducts(response.data);
@@ -36,7 +39,6 @@ const ProductList = () => {
           {products.map(product => (
             <div key={product._id} className="product-card">
               
-            
               {product.imageUrl ? (
                 <img 
                   src={product.imageUrl} 
@@ -47,7 +49,6 @@ const ProductList = () => {
                 <div className="no-image-placeholder">No Image</div>
               )}
               
-
               <h3>{product.name}</h3>
               <p style={{ fontWeight: 'bold', color: 'green' }}>
                 Rp {product.price.toLocaleString()}

@@ -4,13 +4,15 @@ import axios from 'axios';
 import '../App.css'; 
 
 const ProductDetail = () => {
-  const { id } = useParams(); // Get the ID from the URL
+  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+
+  const { id } = useParams(); 
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    axios.get(`http://localhost:5000/api/products/${id}`)
+    axios.get(`${API_URL}/products/${id}`)
       .then(response => {
         setProduct(response.data);
         setLoading(false);
@@ -28,12 +30,12 @@ const ProductDetail = () => {
 
   return (
     <div className="product-detail-container">
-      <Link to="/products" style={{ textDecoration: 'none', color: '#ffffffff' }}>
+      <Link to="/products" style={{ textDecoration: 'none', color: '#333' }}>
          &larr; Back to Product List
       </Link>
       
       <div className="product-detail-card">
-        {/* 1. IMAGE*/}
+        {/* IMAGE */}
         {product.imageUrl ? (
           <img 
             src={product.imageUrl} 
@@ -45,20 +47,20 @@ const ProductDetail = () => {
         )}
         
         <div className="detail-info">
-          {/* 2. NAME */}
+          {/* NAME */}
           <h1>{product.name}</h1>
           
-          {/* 3. PRICE */}
+          {/* PRICE */}
           <h2 style={{ color: 'green' }}>Rp {product.price.toLocaleString()}</h2>
           
-          {/* 4. QUANTITY (Stock) */}
+          {/* QUANTITY */}
           <p className="stock-info">
             <strong>Stock Available:</strong> {product.qty} units
           </p>
           
           <hr />
           
-          {/* 5. DESCRIPTION */}
+          {/* DESCRIPTION */}
           <h3>Description</h3>
           <p>{product.description}</p>
           

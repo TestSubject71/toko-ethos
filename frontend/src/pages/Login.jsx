@@ -3,6 +3,10 @@ import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
 
 const Login = () => {
+  // 1. Define the API URL
+  // It checks your .env file first. If that's empty, it falls back to localhost.
+  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+
   const [formData, setFormData] = useState({ username: '', password: '' });
   const [error, setError] = useState('');
   const navigate = useNavigate();
@@ -11,24 +15,25 @@ const Login = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-    const handleSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-        const res = await axios.post('http://localhost:5000/api/auth/login', formData);
-        
-        // Save Token AND Username
-        localStorage.setItem('token', res.data.token);
-        localStorage.setItem('username', res.data.user.username); // <--- ADD THIS
-        
-        alert('Login Successful!');
-        
-        // Force a reload to update the Navbar instantly
-        window.location.href = '/'; 
-        
+      
+      const res = await axios.post(`${API_URL}/auth/login`, formData);
+      
+      // Save Token AND Username
+      localStorage.setItem('token', res.data.token);
+      localStorage.setItem('username', res.data.user.username);
+      
+      alert('Login Successful!');
+      
+      // Force a reload to update the Navbar instantly
+      window.location.href = '/'; 
+      
     } catch (err) {
-        setError(err.response?.data?.message || 'Login failed');
+      setError(err.response?.data?.message || 'Login failed');
     }
-    };
+  };
 
   return (
     <div style={{ maxWidth: '400px', margin: '50px auto', textAlign: 'center' }}>
